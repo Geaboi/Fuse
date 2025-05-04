@@ -1,0 +1,35 @@
+.TH File Systems "April 23 2025" "Version 1" "Project 3 Documentation"
+.SH NAME
+P3 - File Systems
+.SH SYNOPSIS
+File system manager using the FUSE API to access data in WAD format
+.SH Filepaths and FileNames
+The folder libWad contains Wad.cpp, Wad.h, and the Makefile. The makefile creates wad.o and libWad.a for use with daemon and other testing programs. In wadfs, it contains FUSE.cpp and Makefile to compile into wadfs. This allows for testing with daemon and allows for mounting
+.SH Data Structures
+.PP
+To incorporate the WAD file I used a tree structure with nodes. The root of the tree is / and as you go down you traverse the directories and files requiring a depth traversal algo.Each node represents an element in the WAD file. Directories can have childrens so the node will contain a vector of Node* which represents folder behavior. The nodes also have an id to determine of it is a file or directory. Tree built using stack.The WAD class also has a hashmap which has key value pairs of string path to NODE* pointers. This makes it easier to get the pointer to the Nodes and do operations
+.SH Library Functions
+.PP
+loadWad and Constructor:
+loadWad calls the Constructor to create the datastructures. Initializes the pathMap(HashMap), reads the Header, and creates the tree of the directories. Uses a stack to create this tree.
+getMagic, getSize, isContent, isDirectory:
+getMagic and getSize returns the member variable in the Wad class. isContent and isDirectory uses the pathMap to first check if path is valid. Then checks the Node's id to determine file type.
+getContents, getDirectory:
+getContents reads the offset in the Node through the pathMap. Then goes to the file and copies the info. GetDirectory just uses the pathMap and its children vector to return the size and update the buffer
+createDirectory, createFile, writeToFile:
+First checks path name for all 3 functions. Then it goes to the right place on the descriptor list. It did this by using a stack to dermine if its in the right path. Then it would move the descriptor list by some offset and create the file or directory and update headers. Then update member variables. writeToFile would go to descriptor offset and write there and shift all of descriptor list then update.
+.SH FUSE Daemon
+.PP
+Create the WAD file based on the arguements. Then initalized fuse operations(getattr, readdir,open,read, mknod,mkdir and write). Then call the fuse api with the specified mount directory and -s flag. THe callback function for getattr determines the file type and writes back to the buffer. Readdir returns the getDirectory of my WAD class. Read uses my getContent Function. mkdir creates a directory. MKNOD creates a file node. write uses my writeToFile.
+.SH Daemon testing
+.PP
+Followed Discussion video to test. Tested using ./wadfs/wadfs -s sample1.wad ./mount . Used cd, ls, ls -al, nano, mkdir to test features. After unmounting and mounting saw how changes remained
+.SH BUGS
+.PP
+-No BUGS
+.SH Link
+https://youtu.be/0HQNMoULI08
+.SH REFERENCES/CITATIONS
+
+.SH Author
+Dustin Nguyen
