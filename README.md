@@ -1,67 +1,34 @@
-Fuse-Filesystem
-A custom FUSE-based filesystem implemented in C++ using standard C libraries. This project demonstrates low-level file operations by reading from WAD archive files, utilizing custom-built data structures, and mounting the filesystem on Linux.
+# Fuse-Filesystem
 
-Features
-📦 WAD File Parsing: Reads and interprets WAD archive files (commonly used in games like Doom).
+A custom **FUSE-based filesystem** implemented in **C++** using standard **C libraries**. This project demonstrates low-level file operations by reading from **WAD archive files**, utilizing custom-built data structures, and mounting the filesystem on Linux.
 
-🧠 Custom Data Structures: Efficient in-memory representations of file metadata and directory trees.
+---
 
-🔧 FUSE Integration: Mount the archive contents as a virtual filesystem on Linux.
+## 🚀 Features
 
-📂 File and Directory Operations: Supports file reading, directory listing, and stat operations.
+- 📦 **WAD File Parsing** – Reads and interprets WAD archive files (used in games like Doom).
+- 🧠 **Custom Data Structures** – Stores file metadata and directory structures in memory.
+- 🔧 **FUSE Integration** – Mounts a virtual filesystem using FUSE on Linux.
+- 📂 **Basic File Operations** – Supports reading files, listing directories, and file metadata queries.
 
-Technologies Used
-C++, C
+---
 
-FUSE (Filesystem in Userspace)
+## 🛠 Technologies Used
 
-Linux system calls
+- **C++**, **C**
+- **FUSE (Filesystem in Userspace)**
+- **Linux System Calls**
 
-Installation
-Prerequisites
-Linux OS
+---
 
-libfuse installed (sudo apt install libfuse-dev)
+## 📦 Installation
 
-A valid .wad file
+### Prerequisites
 
-Build
-bash
-Copy
-Edit
-make
-Run
-bash
-Copy
-Edit
-./fusefs <mount_directory> <wad_file>
-Example:
+- A Linux-based system
+- `libfuse` installed:
 
-bash
-Copy
-Edit
-mkdir /tmp/mount
-./fusefs /tmp/mount doom1.wad
-Project Structure
-graphql
-Copy
-Edit
-├── src/
-│   ├── main.cpp         # Entry point
-│   ├── fuse_ops.cpp     # FUSE operation handlers
-│   ├── wad_parser.cpp   # Parses WAD file into memory
-│   └── datastructures/  # Custom file/directory structures
-├── include/
-├── Makefile
-└── README.md
-Future Improvements
-Write support (currently read-only)
+```bash
+sudo apt update
+sudo apt install libfuse-dev
 
-Support for other archive formats
-
-Performance profiling and caching strategies
-
-References
-FUSE documentation
-
-WAD File Format
